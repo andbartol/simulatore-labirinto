@@ -3,16 +3,16 @@ import line
 class Mappa(object):
     def __init__(self, dimensione):
         self.dimensione = dimensione
-        self.mappa = [[False for y in range(dimensione[1])] for x in range(dimensione[0])]
+        self.mappa = []
 
     def load(self, path):
         with open(path, "r") as map:
-            line = map.readline()
-            line = line.split(" ")
-            self._parse(line)
+            for line in map:
+                info = line.split(" ")
+                self._parse(info)
 
     def get(self, posizione):
-        return self.mappa[posizione[0]][posizione[1]]
+        return posizione in self.mappa
 
     def _parse(self, direttiva):
         istruzione = direttiva[0]
@@ -20,7 +20,7 @@ class Mappa(object):
             self._parse_line(direttiva[1:])
 
     def _add_punto(self, posizione):
-        self.mappa[posizione[0]][posizione[1]] = True
+        self.mappa.append(posizione)
 
     def _parse_line(self, coord):
         start = (int(coord[0]), int(coord[1]))
