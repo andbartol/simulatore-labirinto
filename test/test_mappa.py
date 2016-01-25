@@ -15,6 +15,17 @@ class TestMappa(unittest.TestCase):
             self.assertTrue(m.get((x, 0)))
         self.assertFalse(m.get((10,0)))
 
+    def test_loaded_map_multiple_lines(self):
+        m = mappa.Mappa((400,400))
+        m.load("maps/mappaTestMultipleLines.map")
+        for x in range(10):
+            self.assertTrue(m.get((x, 0)))
+        self.assertFalse(m.get((10,0)))
+
+        for y in range(10):
+            self.assertTrue(m.get((0, y)))
+        self.assertFalse(m.get((0,10)))
+
 
 if __name__ == '__main__':
     unittest.main()
