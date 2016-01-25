@@ -1,8 +1,7 @@
 import line
 
 class Mappa(object):
-    def __init__(self, dimensione):
-        self.dimensione = dimensione
+    def __init__(self):
         self.mappa = []
 
     def load(self, path):
