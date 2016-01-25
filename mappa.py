@@ -1,3 +1,5 @@
+import line
+
 class Mappa(object):
     def __init__(self, dimensione):
         self.dimensione = dimensione
@@ -23,7 +25,7 @@ class Mappa(object):
     def _parse_line(self, coord):
         start = (int(coord[0]), int(coord[1]))
         end = (int(coord[2]), int(coord[3]))
-        res = self._gen_line(start, end)
+        res = line.gen_line(start, end)
         for punto in res:
             self._add_punto(punto)
 
