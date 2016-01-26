@@ -2,7 +2,7 @@ import line
 
 class Mappa(object):
     def __init__(self):
-        self.mappa = []
+        self.linee = []
 
     def load(self, path):
         with open(path, "r") as map:
@@ -18,12 +18,7 @@ class Mappa(object):
         if istruzione == 'l':
             self._parse_line(direttiva[1:])
 
-    def _add_punto(self, posizione):
-        self.mappa.append(posizione)
-
     def _parse_line(self, coord):
-        start = (int(coord[0]), int(coord[1]))
-        end = (int(coord[2]), int(coord[3]))
-        res = line.gen_line(start, end)
-        for punto in res:
-            self._add_punto(punto)
+        start = (float(coord[0]), float(coord[1]))
+        end = (float(coord[2]), float(coord[3]))
+        self.linee.append((start,end))

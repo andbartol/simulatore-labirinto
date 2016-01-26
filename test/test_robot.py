@@ -11,7 +11,8 @@ class TestRobot(unittest.TestCase):
         m = mappa.Mappa()
         m.load("maps/mappaSensori.map")
         r = robot.Robot(m, (15,15))
-        self.assertAlmostEqual(r.sense(robot.Sensor.FORWARD), 15.0, 0.1)
+        dist_r = r.sense(robot.Sensor.FORWARD)
+        self.assertAlmostEqual(dist_r, 15.0, 0.1)
 
 if __name__ == '__main__':
     unittest.main()
