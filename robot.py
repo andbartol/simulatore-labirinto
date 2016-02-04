@@ -23,6 +23,20 @@ class Robot():
         self.position = position
         self.angle = math.pi/2
 
+    def velocity(self, velocity):
+        self.velocity = velocity
+
+    def move(self):
+        dist = self.sense(Sensor.FORWARD)
+        if dist <= self.velocity or dist <= 0.1:
+            velocity = dist-0.1
+        else:
+            velocity = self.velocity
+        dx = velocity*math.cos(self.angle)
+        dy = velocity*math.sin(self.angle)
+        self.position[0] += dx
+        self.position[1] += dy
+
     def sense(self, sensor):
         #https://web.archive.org/web/20120612145751/http://local.wasp.uwa.edu.au/~pbourke/geometry/lineline2d/
         #Crea un sensore che parte dal robot e punta all'angolo self.angle
@@ -46,7 +60,10 @@ class Robot():
                 dy = y - self.position[1]
                 dist_squared =  dx**2 + dy**2
                 distances.append(dist_squared)
-        return math.sqrt(min(distances))
+        try:
+            return math.sqrt(min(distances))
+        except ValueError as e:
+            raise ValueError("Posizione: %f - %f" % (self.position[0], self.position[1]))
 
     def turn(self, angle):
         self.angle += angle
