@@ -18,10 +18,20 @@ class Sensor(Enum):
             return math.pi
 
 class Robot():
+    """
+    Classe standard del Robot da ereditare, per usarlo bisogna fare
+    l'override del metodo run
+    """
     def __init__(self, mappa, position):
         self.mappa = mappa
         self.position = position
         self.angle = math.pi/2
+
+    def run(self):
+        '''
+        OVERRIDE ME
+        '''
+        pass
 
     def velocity(self, velocity):
         self.velocity = velocity
@@ -43,6 +53,7 @@ class Robot():
         v_sensor = [self.position[0]+math.cos(self.angle+sensor.offset_angle()), self.position[1]+math.sin(self.angle+sensor.offset_angle())]
         distances = []
         for linea in self.mappa.linee:
+            # Controlla la distanza tra la linea e a linea della mappa
             denominatore = (linea[1][1]-linea[0][1])*(v_sensor[0]-self.position[0])-(linea[1][0]-linea[0][0])*(v_sensor[1]-self.position[1])
             numa = (linea[1][0]-linea[0][0])*(self.position[1]-linea[0][1])-(linea[1][1]-linea[0][1])*(self.position[0]-linea[0][0])
             numb = (v_sensor[0]-self.position[0])*(self.position[1]-linea[0][1])-(v_sensor[1]-self.position[1])*(self.position[0]-linea[0][0])
