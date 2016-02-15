@@ -3,6 +3,7 @@ import pygame
 import mappa
 import robot
 import math
+import sys
 
 class SingleRun():
     def __init__(self, robot, scale=1):
@@ -18,16 +19,14 @@ class SingleRun():
         pygame.display.set_caption("ROBITIS")
         pygame.font.init()
         self.font = pygame.font.SysFont("Arial", 30)
+        clock = pygame.time.Clock()
 
         while True:
+            clock.tick(30)
             self.update()
             self.draw()
 
-            try:
-                pygame.display.flip()
-            except Exception:
-                pygame.display.quit()
-                break
+            pygame.display.flip()
 
     def update(self):
         self.robot.run()
@@ -60,22 +59,49 @@ class SingleRun():
         return self.font.render(testo, False, (255,255,255))
 
     def drawRobot(self):
-        radius = 10
-        pos_adj = (self.robot.position[0]*self.scale, self.robot.position[1]*self.scale)
+        radius = self.scale
+        pos_adj = (int(self.robot.position[0]*self.scale), int(self.robot.position[1]*self.scale))
         pygame.draw.circle(self.screen, (0,255,0), pos_adj, radius, 1)
         angle = self.robot.angle
-        end = (radius*math.cos(angle)+pos_adj[0], radius*math.sin(angle)+pos_adj[1])
+        end = (int(radius*math.cos(angle)+pos_adj[0]), int(radius*math.sin(angle)+pos_adj[1]))
         pygame.draw.line(self.screen, (255,0,0), pos_adj, end)
+
 
 def test():
     m = mappa.Mappa()
     m.load("maps/mappaSensori.map")
 
-    r = robot.Robot(m, (15,15))
-    r.turn(math.pi)
+    r = robot.Robot(m, [15,15])
+    r.velocity = 0.5
+    r.turn(3/16*(math.pi))
+    robot.Robot.run = lambda a: keyboardMove(a)
 
-    run = SingleRun(r, scale=10)
+    run = SingleRun(r, scale=20)
     run.play()
+
+
+def keyboardMove(robot):
+    if keyboardMove.turning_right:
+        robot.turn(0.1)
+    if keyboardMove.turning_left:
+        robot.turn(-0.1)
+    if keyboardMove.moving:
+        robot.move()
+    for event in pygame.event.get():
+        if not hasattr(event, 'key'): continue
+        if event.key == pygame.K_ESCAPE:
+            pygame.display.quit()
+            sys.exit(0)
+        if event.key == pygame.K_UP:
+            keyboardMove.moving = (event.type == pygame.KEYDOWN)
+        if event.key == pygame.K_LEFT:
+            keyboardMove.turning_left = (event.type == pygame.KEYDOWN)
+        if event.key == pygame.K_RIGHT:
+            keyboardMove.turning_right = (event.type == pygame.KEYDOWN)
+
+keyboardMove.turning_right = False
+keyboardMove.turning_left = False
+keyboardMove.moving = False
 
 if __name__ == '__main__':
     test()
