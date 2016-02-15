@@ -26,15 +26,13 @@ class Robot():
         self.mappa = mappa
         self.position = position
         self.angle = math.pi/2
+        self.velocity = 1
 
     def run(self):
         '''
         OVERRIDE ME
         '''
         pass
-
-    def velocity(self, velocity):
-        self.velocity = velocity
 
     def move(self):
         dist = self.sense(Sensor.FORWARD)
