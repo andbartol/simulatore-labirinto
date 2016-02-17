@@ -59,7 +59,7 @@ class SingleRun():
         return self.font.render(testo, False, (255,255,255))
 
     def drawRobot(self):
-        radius = self.scale
+        radius = 20
         pos_adj = (int(self.robot.position[0]*self.scale), int(self.robot.position[1]*self.scale))
         pygame.draw.circle(self.screen, (0,255,0), pos_adj, radius, 1)
         angle = self.robot.angle
@@ -69,14 +69,14 @@ class SingleRun():
 
 def test():
     m = mappa.Mappa()
-    m.load("maps/mappaSensori.map")
+    m.load("maps/mappaDef.map")
 
     r = robot.Robot(m, [15,15])
-    r.velocity = 0.5
+    r.velocity = 4
     r.turn(3/16*(math.pi))
     robot.Robot.run = lambda a: keyboardMove(a)
 
-    run = SingleRun(r, scale=20)
+    run = SingleRun(r, scale=1)
     run.play()
 
 

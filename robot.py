@@ -72,7 +72,7 @@ class Robot():
         try:
             return math.sqrt(min(distances))
         except ValueError as e:
-            raise ValueError("Posizione: %f - %f" % (self.position[0], self.position[1]))
+            return 9999
 
     def turn(self, angle):
         self.angle += angle
