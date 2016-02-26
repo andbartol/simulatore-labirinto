@@ -56,7 +56,7 @@ class MapCreator(object):
 
     def manage_mouse(self, event):
         self.updatePointer(event)
-        sel = [[y/self.tile_size for y in x] for x in self.pointer]
+        sel = [[int(y/self.tile_size) for y in x] for x in self.pointer]
         if event.buttons[0] == 1:
             self.map.append(sel)
         elif event.buttons[2] == 1:
