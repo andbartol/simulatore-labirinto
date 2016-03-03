@@ -37,7 +37,7 @@ class MapCreator(object):
             pickle.dump(self.map, f)
 
     def init_screen(self):
-        self.screen = pygame.display.set_mode((1024, 768))
+        self.screen = pygame.display.set_mode((self.size[0]*self.tile_size, self.size[1]*self.tile_size))
         pygame.display.set_caption("ROBITIS MAP CREATOR")
 
     def init_font(self):
