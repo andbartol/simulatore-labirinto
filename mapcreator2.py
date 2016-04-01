@@ -94,7 +94,7 @@ class MapCreator(object):
         self.draw_pointer()
 
     def draw_pointer(self):
-        pygame.draw.line(self.screen, (255,0,218), self.pointer[0], self.pointer[1])
+        pygame.draw.line(self.screen, (0,0,0), self.pointer[0], self.pointer[1])
 
     def draw_walls(self):
         for wall in self.map:
