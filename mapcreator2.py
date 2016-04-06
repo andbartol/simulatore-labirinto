@@ -1,11 +1,12 @@
-import math
-import pygame
-import mappa
-import robot
-import math
-import sys
-import pickle
 import argparse
+import mappa
+import maputilities
+import math
+import math
+import pickle
+import pygame
+import robot
+import sys
 
 class MapCreator(object):
     def __init__(self, size=(30,30), output="a.map", input="a.map", tile_size=40):
@@ -86,6 +87,8 @@ class MapCreator(object):
             self.exit = True
         if event.key == pygame.K_SPACE and event.type == pygame.KEYDOWN:
             self.horizontal = not(self.horizontal)
+        if event.key == pygame.K_0 and event.type == pygame.KEYDOWN:
+            print([[int(y/self.tile_size) for y in x] for x in self.pointer][0])
 
     def draw(self):
         self.screen.fill((0,0,0))
@@ -103,7 +106,12 @@ class MapCreator(object):
     def draw_wall(self, wall):
         start = [c*self.tile_size for c in wall[0]]
         end = [c*self.tile_size for c in wall[1]]
-        pygame.draw.line(self.screen, (255,0,218), start, end)
+        # if maputilities.is_outer(wall, self.map, self.size, []):
+            # color = (0,0,0)
+        # else:
+            # color = (255,0,218)
+        color = (255,0,218)
+        pygame.draw.line(self.screen, color, start, end)
 
 def main():
     parser = argparse.ArgumentParser()
