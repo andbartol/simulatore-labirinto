@@ -4,14 +4,17 @@ import math
 import pickle
 import robot2
 import program
+import neural_program
 import ProgramAsk
 import copy
 import sys
 
+from neat import nn, parallel, population
+
 class SingleRun():
-    def __init__(self, map, program, max_turns=30):
+    def __init__(self, map, program, position=[0,0], max_turns=30):
         self.map = map
-        self.robot = robot2.Robot2(self.map)
+        self.robot = robot2.Robot2(self.map, position)
         self.program = program
         self.passed = []
         self.points = 0
@@ -40,10 +43,13 @@ class SingleRun():
 def main():
     with open("prova.map", "rb") as f:
         map = pickle.load(f)
-        p = ProgramAsk.ProgramAsk()
-        s = SingleRun(map, p)
-        s.play()
-        print(s.points)
+    with open(sys.argv[1], "rb") as f:
+        genome = pickle.load(f)
+    pheno = nn.create_feed_forward_phenotype(genome)
+    p = neural_program.NeuralProgram(pheno)
+    s = SingleRun(map, p)
+    s.play()
+    print(s.points)
 
 if __name__ == '__main__':
     main()

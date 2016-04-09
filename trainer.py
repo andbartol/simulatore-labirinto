@@ -8,6 +8,7 @@ python setup.py install
 from __future__ import print_function
 
 import math
+import random
 import os
 import time
 import pickle
@@ -28,14 +29,15 @@ def fitness(genome):
 
 def run():
 
+    random.seed()
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'lab_config')
 
-    pe = parallel.ParallelEvaluator(9, fitness)
+    pe = parallel.ParallelEvaluator(5, fitness)
 
     pop = population.Population(config_path)
-    for i in range(20):
-        pop.run(pe.evaluate, 1)
+    for i in range(100):
+        pop.run(pe.evaluate, 10)
         winner = pop.statistics.best_genome()
 
         with open("res_%d.net" % i, "wb") as f:
