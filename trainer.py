@@ -18,7 +18,7 @@ import neural_program
 from neat import nn, parallel, population
 
 def fitness(genome):
-    net = nn.create_feed_forward_phenotype(genome)
+    net = nn.create_recurrent_phenotype(genome)
 
     with open("prova.map","rb") as f:
         map = pickle.load(f)

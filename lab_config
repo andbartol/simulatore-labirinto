@@ -5,21 +5,21 @@ reproduction_type    = DefaultReproduction
 
 [phenotype]
 input_nodes          = 4
-hidden_nodes         = 10
+hidden_nodes         = 0
 output_nodes         = 4
 initial_connection   = unconnected
-max_weight           = 50
-min_weight           = 0
-feedforward          = 1
+max_weight           = 10
+min_weight           = -10
+feedforward          = 0
 activation_functions = sigmoid
 #activation_functions = tanh
 weight_stdev         = 2.0
 
 [genetic]
-pop_size                = 150
+pop_size                = 300
 max_fitness_threshold   = 40
-prob_add_conn          = 0.05
-prob_add_node          = 0.03
+prob_add_conn          = 0.10
+prob_add_node          = 0.05
 prob_delete_conn       = 0.01
 prob_delete_node       = 0.01
 prob_mutate_bias       = 0.2

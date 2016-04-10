@@ -8,5 +8,5 @@ class NeuralProgram(program.Program):
 
     def next_step(self, sens):
         s = [int(x) for x in sens]
-        out = self.net.serial_activate(s)
+        out = self.net.activate(s)
         return out.index(max(out))
