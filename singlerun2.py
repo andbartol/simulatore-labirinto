@@ -23,7 +23,10 @@ class SingleRun():
     def step(self):
         sense = self.robot.sense()
         direction = self.program.next_step(sense)
+        old_position = self.robot.position
         self.robot.move(direction)
+        if self.robot.position == old_position:
+            self.points -= 1
 
     def update_points(self):
         if not self.robot.position in self.passed:
