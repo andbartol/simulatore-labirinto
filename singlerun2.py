@@ -19,12 +19,15 @@ class SingleRun():
         self.passed = []
         self.points = 0
         self.max_turns = max_turns
+        self.direction = 0
 
     def step(self):
         sense = self.robot.sense()
-        direction = self.program.next_step(sense)
+        for x in range(self.direction): #ruoto le letture dei sensori
+            sense.append(sense.pop(0))
+        self.direction = (self.program.next_step(sense)+self.direction)%4
         old_position = self.robot.position
-        self.robot.move(direction)
+        self.robot.move(self.direction)
         if self.robot.position == old_position:
             self.points -= 1
 
@@ -44,12 +47,18 @@ class SingleRun():
         return self.points
 
 def main():
+    # with open("prova.map", "rb") as f:
+        # map = pickle.load(f)
+    # with open(sys.argv[1], "rb") as f:
+        # genome = pickle.load(f)
+    # pheno = nn.create_feed_forward_phenotype(genome)
+    # p = neural_program.NeuralProgram(pheno)
+    # s = SingleRun(map, p)
+    # s.play()
+    # print(s.points)
     with open("prova.map", "rb") as f:
         map = pickle.load(f)
-    with open(sys.argv[1], "rb") as f:
-        genome = pickle.load(f)
-    pheno = nn.create_feed_forward_phenotype(genome)
-    p = neural_program.NeuralProgram(pheno)
+    p = ProgramAsk.ProgramAsk()
     s = SingleRun(map, p)
     s.play()
     print(s.points)
