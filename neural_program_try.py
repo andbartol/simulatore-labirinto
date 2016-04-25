@@ -7,7 +7,8 @@ class NeuralProgram(program.Program):
         self.net = net
 
     def next_step(self, sens):
-        out = self.net.serial_activate(sens)
+        s = [1 if x else -1 for x in sens]
+        out = self.net.activate(s)
         r = out.index(max(out))
         print(r)
         return r

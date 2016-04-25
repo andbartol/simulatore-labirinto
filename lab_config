@@ -8,8 +8,8 @@ input_nodes          = 4
 hidden_nodes         = 0
 output_nodes         = 4
 initial_connection   = unconnected
-max_weight           = 10
-min_weight           = -10
+max_weight           = 5
+min_weight           = -5
 feedforward          = 0
 activation_functions = sigmoid
 #activation_functions = tanh
@@ -17,7 +17,7 @@ weight_stdev         = 2.0
 
 [genetic]
 pop_size                = 300
-max_fitness_threshold   = 40
+max_fitness_threshold   = 99999
 prob_add_conn          = 0.10
 prob_add_node          = 0.05
 prob_delete_conn       = 0.01
