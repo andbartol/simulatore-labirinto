@@ -16,7 +16,7 @@ def main():
 
     with open(args.map, "rb") as f:
         map = pickle.load(f)
-    net = nn.create_feed_forward_phenotype(genome)
+    net = nn.create_recurrent_phenotype(genome)
     prog = neural_program_try.NeuralProgram(net)
     s = singlerun2.SingleRun(map, prog)
     print(s.play())

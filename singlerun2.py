@@ -26,10 +26,7 @@ class SingleRun():
         for x in range(self.direction): #ruoto le letture dei sensori
             sense.append(sense.pop(0))
         self.direction = (self.program.next_step(sense)+self.direction)%4
-        old_position = self.robot.position
         self.robot.move(self.direction)
-        if self.robot.position == old_position:
-            self.points -= 1
 
     def update_points(self):
         if not self.robot.position in self.passed:

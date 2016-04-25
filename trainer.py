@@ -33,14 +33,14 @@ def run():
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'lab_config')
 
-    pe = parallel.ParallelEvaluator(5, fitness)
+    pe = parallel.ParallelEvaluator(9, fitness)
 
     pop = population.Population(config_path)
     for i in range(100):
         pop.run(pe.evaluate, 10)
         winner = pop.statistics.best_genome()
 
-        with open("res_%d.net" % i, "wb") as f:
+        with open("ress/res_%d.net" % i, "wb") as f:
             pickle.dump(winner, f)
 
 if __name__ == '__main__':
