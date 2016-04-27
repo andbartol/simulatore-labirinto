@@ -5,6 +5,7 @@ import pickle
 import robot2
 import program
 import neural_program
+import ProgramFinal
 import ProgramAsk
 import copy
 import sys
@@ -12,7 +13,7 @@ import sys
 from neat import nn, parallel, population
 
 class SingleRun():
-    def __init__(self, map, program, position=[0,0], max_turns=30):
+    def __init__(self, map, program, position=[0,0], max_turns=100):
         self.map = map
         self.robot = robot2.Robot2(self.map, position)
         self.program = program
@@ -26,6 +27,8 @@ class SingleRun():
         for x in range(self.direction): #ruoto le letture dei sensori
             sense.append(sense.pop(0))
         self.direction = (self.program.next_step(sense)+self.direction)%4
+        print(self.direction)
+        print(self.robot.position)
         self.robot.move(self.direction)
 
     def update_points(self):
@@ -55,7 +58,7 @@ def main():
     # print(s.points)
     with open("prova.map", "rb") as f:
         map = pickle.load(f)
-    p = ProgramAsk.ProgramAsk()
+    p = ProgramFinal.ProgramFinal()
     s = SingleRun(map, p)
     s.play()
     print(s.points)
